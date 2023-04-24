@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GYM } from '../models/GYM';
+import { DataServiceService } from '../services/data/data-service.service';
 
 @Component({
   selector: 'app-create-registration',
@@ -7,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./create-registration.component.css']
 })
 export class CreateRegistrationComponent implements OnInit {
+  obj:GYM=new GYM();
   importantList: string[] = [
     "Toxic Fat reduction",
     "Energy and Endurance",
@@ -17,7 +20,7 @@ export class CreateRegistrationComponent implements OnInit {
   ]
 
   public registerForm!: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private service:DataServiceService) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -34,7 +37,7 @@ export class CreateRegistrationComponent implements OnInit {
       package: [''],
       important: [''],
       haveGymBefore: [''],
-      enquiryDate: ['']
+      date: ['']
     });
     this.registerForm.controls['height'].valueChanges.subscribe(res => {
       this.calculateBmi(res);
@@ -43,7 +46,14 @@ export class CreateRegistrationComponent implements OnInit {
   
   handleSubmit()
   {
-    console.log(this.registerForm.value);
+    console.warn(this.registerForm.value.date.toDateString()+" "+typeof this.registerForm.value.date.toDateString());
+    this.obj=this.registerForm.value;
+    this.obj.date=this.registerForm.value.date.toDateString()
+    this.obj.important=this.registerForm.value.important.toString()
+    console.log(this.obj);
+    this.service.postData(this.obj).subscribe(res=>{
+      alert(res);
+    })
   }
 
   calculateBmi(value: number) {
