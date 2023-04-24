@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { GYM } from '../models/GYM';
 import { DataServiceService } from '../services/data/data-service.service';
 
@@ -24,7 +25,7 @@ export class CreateRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      firstName: [''],
+      firstName: ['',Validators.required],
       lastName: [''],
       email: [''],
       mobile: [''],
@@ -37,7 +38,7 @@ export class CreateRegistrationComponent implements OnInit {
       package: [''],
       important: [''],
       haveGymBefore: [''],
-      date: ['']
+      date: ['',Validators.required]
     });
     this.registerForm.controls['height'].valueChanges.subscribe(res => {
       this.calculateBmi(res);
