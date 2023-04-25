@@ -11,6 +11,7 @@ import { DataServiceService } from '../services/data/data-service.service';
 })
 export class CreateRegistrationComponent implements OnInit {
   obj:GYM=new GYM();
+  req:string='';
   importantList: string[] = [
     "Toxic Fat reduction",
     "Energy and Endurance",
@@ -25,7 +26,7 @@ export class CreateRegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      firstName: ['',Validators.required, Validators.minLength(3)],
+      firstName: ['',[Validators.required,Validators.minLength(5)]],
       lastName: [''],
       email: [''],
       mobile: [''],
@@ -44,7 +45,25 @@ export class CreateRegistrationComponent implements OnInit {
       this.calculateBmi(res);
     });
   }
-  
+  checkErrors(str:string)
+  {
+    this.req='';
+    console.log(typeof this.registerForm.controls[str].errors?.['minlength'])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    if(this.registerForm.controls[str].errors?.['required'])
+    {
+      this.req+=`${str} is required`;
+    }
+
+    if(this.registerForm.controls[str].errors?.['minlength'])
+    {
+      
+      if(this.req.length!=0)
+      {
+        this.req+="\n"
+      }
+      this.req+=`${str} minLength should be 5`;
+    }
+  }
   handleSubmit()
   {
     console.warn(this.registerForm.value.date.toDateString()+" "+typeof this.registerForm.value.date.toDateString());
