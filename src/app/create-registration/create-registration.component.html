@@ -8,11 +8,12 @@
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstName" placeholder="FirstName" >
+                    <input matInput formControlName="firstName" placeholder="FirstName" matTooltip="Info about the action">
                     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
                     <mat-error *ngIf="registerForm.controls['firstName'].touched">
-                      <span  *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty) "></span>
+                      <!-- <span  *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty) "></span>
                       <span  style=" color: red; font-weight: bold;" *ngIf="registerForm.controls['firstName'].errors?.['required']">name is empty</span>
+                      <span  style=" color: red; font-weight: bold;" *ngIf="registerForm.controls['firstName'].errors?.['minlength']">min 3 chars allowed</span> -->
                     </mat-error>
                   </mat-form-field>
             </div>
