@@ -21,13 +21,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { FormFieldFocusDirective } from './form-field-focus.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationListComponent,
     UserDetailsComponent,
-    CreateRegistrationComponent
+    CreateRegistrationComponent,
+    FormFieldFocusDirective
   ],
   imports: [
     BrowserModule,

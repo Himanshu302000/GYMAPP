@@ -3,14 +3,14 @@
 </div>
 
 <div class="registration-form m-3 p-4">
-    <form [formGroup]="registerForm">
+    <form (ngSubmit)="handleSubmit()" appFormFieldFocus [formGroup]="registerForm">
         <div class="row">
             <div class="col-md-6">
                 <mat-form-field appearance="outline">
                     <mat-label>First Name</mat-label>
-                    <input  matInput formControlName="firstName" placeholder="FirstName" (blur)="checkErrors('firstName')">
-                    <mat-icon matSuffix *ngIf="registerForm.controls['firstName'].touched && registerForm.controls['firstName'].invalid" 
-                      matTooltip="{{req}}" matTooltipPosition="right">not_interested</mat-icon>
+                    <input  matInput formControlName="firstName" placeholder="FirstName" (keyup)="checkErrors('firstName')">
+                    <mat-icon matTooltipClass="abc" matSuffix *ngIf="registerForm.controls['firstName'].touched && registerForm.controls['firstName'].dirty  && registerForm.controls['firstName'].invalid" 
+                      matTooltip="{{err}}" matTooltipClass="test" matTooltipPosition="right">not_interested</mat-icon>
                     <mat-error *ngIf="registerForm.controls['firstName'].touched">
                       <!-- <span  *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty) "></span>
                       <span  style=" color: red; font-weight: bold;" *ngIf="registerForm.controls['firstName'].errors?.['required']">name is empty</span>
@@ -127,6 +127,6 @@
                   </mat-form-field>
             </div>
         </div>
-        <button class="mt-4" (click)="handleSubmit()" mat-raised-button style="background-color: yellow;">Submit</button>
+        <button class="mt-4"  mat-raised-button style="background-color: yellow;">Submit</button>
     </form>
 </div>

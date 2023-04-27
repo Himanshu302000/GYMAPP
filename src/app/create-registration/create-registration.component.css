@@ -21,3 +21,7 @@ mat-form-field{
     top: 0;
     right: 0;
 }
+
+::ng-deep.test{
+  white-space: pre-line;
+}

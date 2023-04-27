@@ -20,6 +20,7 @@ export class CreateRegistrationComponent implements OnInit {
     "Sugar Craving Body",
     "Fitness"
   ]
+  ers:string[]=[];
 
   public registerForm!: FormGroup;
   constructor(private fb: FormBuilder,private service:DataServiceService) { }
@@ -27,42 +28,43 @@ export class CreateRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.fb.group({
       firstName: ['',[Validators.required,Validators.minLength(5)]],
-      lastName: [''],
-      email: [''],
-      mobile: [''],
-      weight: [''],
-      height: [''],
-      bmi: [''],
-      bmiResult: [''],
-      gender: [''],
-      requireTrainer: [''],
-      package: [''],
-      important: [''],
-      haveGymBefore: [''],
+      lastName: ['',Validators.required],
+      email: ['',Validators.required],
+      mobile: ['',Validators.required],
+      weight: ['',Validators.required],
+      height: ['',Validators.required],
+      bmi: ['',Validators.required],
+      bmiResult: ['',Validators.required],
+      gender: ['',Validators.required],
+      requireTrainer: ['',Validators.required],
+      package: ['',Validators.required],
+      important: ['',Validators.required],
+      haveGymBefore: ['',Validators.required],
       date: ['',Validators.required]
     });
     this.registerForm.controls['height'].valueChanges.subscribe(res => {
       this.calculateBmi(res);
     });
   }
-  checkErrors(str:string)
+  err:any;
+    checkErrors(str:string)
   {
-    this.req='';
-    console.log(typeof this.registerForm.controls[str].errors?.['minlength'])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    this.ers=[];
+    this.err='';
+    console.log(this.registerForm.controls['firstName'].errors||this.registerForm.controls['firstName'].value.length===0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     if(this.registerForm.controls[str].errors?.['required'])
     {
-      this.req+=`${str} is required`;
+      console.log("Entered")
+      this.ers.push(`${str} is required`);
     }
-
-    if(this.registerForm.controls[str].errors?.['minlength'])
+    console.log(this.registerForm.controls[str].errors?.['minlength']===undefined);
+    if(this.registerForm.controls[str].errors?.['minlength'] || this.registerForm.controls[str].errors?.['minlength']===undefined)
     {
       
-      if(this.req.length!=0)
-      {
-        this.req+="\n"
-      }
-      this.req+=`${str} minLength should be 5`;
+      this.ers.push(`${str} minLen should be 5`);
     }
+    this.err = this.ers.join('\n');
+
   }
   handleSubmit()
   {
